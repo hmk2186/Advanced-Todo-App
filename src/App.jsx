@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./General.css";
@@ -8,6 +9,7 @@ import TodoList from "./components/TodoList";
 import Actions from "./components/Actions";
 
 import { LuClipboardPenLine } from "react-icons/lu";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 export default function App() {
   let [todos, setTodos] = useState([]);
@@ -18,15 +20,20 @@ export default function App() {
   let [dateTime, setDateTime] = useState("");
   let [priority, setPriority] = useState("low");
   let [category, setCategory] = useState("work");
-  let [dark, setDark] = useState(false);
+
+  let [dark, setDark] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
 
   useEffect(() => {
-  if (dark) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-}, [dark]);
+    if (dark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [dark]);
 
   let addNewTask = () => {
     if (newTodo.trim() === "") {
@@ -81,12 +88,16 @@ export default function App() {
 
   let MarkAsDone = (id) => {
     setTodos((todos) =>
-      todos.map((todo) => (todo.id === id ? { ...todo, isDone: true } : todo)),
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: true } : todo
+      )
     );
   };
 
   let MarkAllDone = () => {
-    setTodos((todos) => todos.map((todo) => ({ ...todo, isDone: true })));
+    setTodos((todos) =>
+      todos.map((todo) => ({ ...todo, isDone: true }))
+    );
   };
 
   let editTask = (todo) => {
@@ -109,18 +120,27 @@ export default function App() {
   });
 
   return (
-    <div>
-      {/* <button onClick={() => setDark(!dark)}>
-        Toggle
-      </button>
-      <div className="bg-white dark:bg-black dark:text-white">
-        Test
-      </div> */}
-      <div className="flex items-center justify-center gap-2 bg-blue-200">
-        <LuClipboardPenLine className="my-2 text-xl" />
-        <h3 className="text-xl font-semibold my-2">To-Do List</h3>
+    <div className="min-h-screen m-0 p-0 bg-[#e2e8f0] dark:bg-[#0f172a] text-black dark:text-white transition-all duration-300">
+
+      {/* ✅ Header with toggle */}
+      <div className="flex items-center justify-between px-4 bg-blue-200 dark:bg-[#1e293b] py-2 shadow-md">
+
+        {/* Left */}
+        <div className="flex items-center justify-center gap-2 mx-auto">
+          <LuClipboardPenLine className="text-xl" />
+          <h3 className="text-xl font-semibold">To-Do List</h3>
+        </div>
+
+        {/* Right (Toggle) */}
+        <button
+          onClick={() => setDark(!dark)}
+          className="text-xl p-2 rounded-full bg-white dark:bg-[#0f172a] shadow-md"
+        >
+          {dark ? <MdLightMode /> : <MdDarkMode />}
+        </button>
       </div>
 
+      {/* Form */}
       <TodoForm
         {...{
           newTodo,
@@ -136,23 +156,24 @@ export default function App() {
         }}
       />
 
-      <hr />
-        <h3 className="text-center my-2 text-xl font-semibold">
-          Your Todos
-        </h3>
+      {/* Title */}
+      <h3 className="text-center my-2 text-xl font-semibold border p-2 w-40 rounded-xl mt-4 mx-auto bg-blue-200 dark:bg-[#1e293b] shadow-md">
+        Your Todos
+      </h3>
 
-        <SearchFilter {...{ search, searchTodoTask, setFilter }} />
+      <SearchFilter {...{ search, searchTodoTask, setFilter }} />
 
-        <TodoList
-          {...{
-            finalTodos,
-            deleteTask,
-            MarkAsDone,
-            editTask,
-          }}
-        />
+      <TodoList
+        {...{
+          finalTodos,
+          deleteTask,
+          MarkAsDone,
+          editTask,
+        }}
+      />
 
-        <Actions MarkAllDone={MarkAllDone} />
-      </div>
+      <Actions MarkAllDone={MarkAllDone} />
+    </div>
   );
 }
+
