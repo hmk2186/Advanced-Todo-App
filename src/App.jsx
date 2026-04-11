@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./General.css";
@@ -21,9 +20,7 @@ export default function App() {
   let [priority, setPriority] = useState("low");
   let [category, setCategory] = useState("work");
 
-  let [dark, setDark] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
+  let [dark, setDark] = useState(localStorage.getItem("theme") === "dark");
 
   useEffect(() => {
     if (dark) {
@@ -88,16 +85,12 @@ export default function App() {
 
   let MarkAsDone = (id) => {
     setTodos((todos) =>
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: true } : todo
-      )
+      todos.map((todo) => (todo.id === id ? { ...todo, isDone: true } : todo)),
     );
   };
 
   let MarkAllDone = () => {
-    setTodos((todos) =>
-      todos.map((todo) => ({ ...todo, isDone: true }))
-    );
+    setTodos((todos) => todos.map((todo) => ({ ...todo, isDone: true })));
   };
 
   let editTask = (todo) => {
@@ -121,14 +114,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen m-0 p-0 bg-[#e2e8f0] dark:bg-[#0f172a] text-black dark:text-white transition-all duration-300">
-
       {/* ✅ Header with toggle */}
       <div className="flex items-center justify-between px-4 bg-blue-200 dark:bg-[#1e293b] py-2 shadow-md">
-
         {/* Left */}
-        <div className="flex items-center justify-center gap-2 mx-auto">
-          <LuClipboardPenLine className="text-xl" />
-          <h3 className="text-xl font-semibold">To-Do List</h3>
+        <div className="flex items-center justify-center gap-2 mx-auto mt-4">
+          <LuClipboardPenLine className="text-2xl dark:text-sky-400" />
+          <h3 className="text-2xl font-semibold">To-Do List</h3>
         </div>
 
         {/* Right (Toggle) */}
@@ -155,11 +146,17 @@ export default function App() {
           editId,
         }}
       />
+      {/*Title*/}
+      <div className="max-w-sm md:max-w-3xl mx-auto px-4 mt-6">
+        <h2 className="text-xl md:text-2xl font-semibold mb-2">Your Todos</h2>
 
-      {/* Title */}
+        <div className="h-[2px] w-16 bg-blue-500 rounded-full mb-4"></div>
+      </div>
+
+      {/* Title
       <h3 className="text-center my-2 text-xl font-semibold border p-2 w-40 rounded-xl mt-4 mx-auto bg-blue-200 dark:bg-[#1e293b] shadow-md">
         Your Todos
-      </h3>
+      </h3> */}
 
       <SearchFilter {...{ search, searchTodoTask, setFilter }} />
 
@@ -176,4 +173,3 @@ export default function App() {
     </div>
   );
 }
-

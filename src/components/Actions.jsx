@@ -11,7 +11,7 @@ export default function Actions({ MarkAllDone }) {
         shadow-md shadow-green-500/40
         transition-all duration-300"
       >
-        Mark all as Done
+        Mark All As Done
       </button>
 
     </div>

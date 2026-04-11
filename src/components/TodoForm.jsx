@@ -1,3 +1,4 @@
+
 export default function TodoForm({
   newTodo,
   updateTodoValue,
@@ -11,19 +12,23 @@ export default function TodoForm({
   editId,
 }) {
   return (
-    <div className="bg-blue-200 dark:bg-[#1e293b] py-4 transition-all duration-300">
+    <div className="bg-blue-200 dark:bg-[#1e293b] py-6 transition-all duration-300">
+      
       <div
-        className="max-w-xs mx-auto flex flex-col gap-3 p-4 rounded-xl 
+        className="w-full max-w-xs md:max-w-xl mx-auto 
+        grid grid-cols-1 md:grid-cols-2
+        flex flex-col gap-4 p-5 rounded-2xl 
         bg-blue-100 dark:bg-[#0f172a] 
         shadow-[0_10px_30px_rgba(0,0,0,0.25),0_0_10px_rgba(0,0,0,0.15)]"
       >
+
         {/* Task Input */}
         <input
           type="text"
           placeholder="Add your task"
           onChange={updateTodoValue}
           value={newTodo || ""}
-          className="w-full p-2 rounded-lg outline-none 
+          className="w-full p-3 rounded-lg outline-none 
           bg-white dark:bg-[#1e293b] 
           text-black dark:text-white 
           border border-gray-300 dark:border-gray-600
@@ -35,7 +40,7 @@ export default function TodoForm({
           type="datetime-local"
           onChange={updateDateTime}
           value={dateTime || ""}
-          className="w-full p-2 rounded-lg 
+          className="w-full p-3 rounded-lg 
           bg-white dark:bg-[#1e293b] 
           text-black dark:text-white 
           border border-gray-300 dark:border-gray-600
@@ -46,7 +51,7 @@ export default function TodoForm({
         <select
           onChange={setTaskPriority}
           value={priority || "low"}
-          className="w-full p-2 rounded-lg 
+          className="w-full p-3 rounded-lg 
           bg-white dark:bg-[#1e293b] 
           text-black dark:text-white 
           border border-gray-300 dark:border-gray-600
@@ -61,7 +66,7 @@ export default function TodoForm({
         <select
           onChange={setTaskCategory}
           value={category}
-          className="w-full p-2 rounded-lg 
+          className="w-full p-3 rounded-lg 
           bg-white dark:bg-[#1e293b] 
           text-black dark:text-white 
           border border-gray-300 dark:border-gray-600
@@ -75,7 +80,7 @@ export default function TodoForm({
         {/* Button */}
         <button
           onClick={addNewTask}
-          className="w-full p-2 rounded-lg font-medium text-white 
+          className="md:col-span-2 mx-auto w-full p-3 rounded-lg font-medium text-white 
           bg-blue-500 hover:bg-blue-600 
           shadow-md shadow-blue-500/40 
           transition-all duration-300"
@@ -86,3 +91,4 @@ export default function TodoForm({
     </div>
   );
 }
+
