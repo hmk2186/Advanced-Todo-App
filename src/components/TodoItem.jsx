@@ -164,7 +164,7 @@ export default function TodoItem({
         </div>
 
         {/* DEADLINE */}
-        <span className={statusText === "Overdue" ? "text-red-500" : "text-black"}>
+        <span className={statusText === "Overdue" ? "text-red-500" : "text-black dark:text-white"}>
           {todo.dateTime
             ? new Date(todo.dateTime).toLocaleString()
             : "No deadline"}
